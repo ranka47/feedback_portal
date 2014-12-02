@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block home-student %} class="active" {% endblock %}
+{% block main %}
+
+<h2 class="sub-header">{{post.course}}</h2>
+<hr>
+
+<table class="table table-striped">
+    <tr><td><b>Post</b></td><td>{{post.post}}</td></tr>
+    <tr><td><b>Date/Time</b></td><td>{{post.created_at}}</td></tr>
+</table>
+<hr>
+<div class="container" style=" margin-bottom: 30px;width:2500px">
+    <div class="col-md-4" style="background-color: #f5f5f5; padding-top: 10px; padding-bottom:20px;">
+
+        {% if post.comment_set.all %}
+            <h4>Previous Comments</h4>
+        {% else %}
+            <h4>Comments</h4>
+            <p>No previous Comments.</p>
+        {% endif %}
+
+        <table class="table">
+            {% for comment in post.comment_set.all %}
+            <tr>
+                <td style="color: #428bca; font-weight: bold;">{{ comment.user }}</td>
+                <td>{{ comment.text }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        <form action="/feedback/{{ post.id }}/post/comment/" method="post">
+            {% csrf_token %}
+            {{ comment_form }}
+            </br><button type="submit" class="comment">Comment</button>
+        </form>
+
+    </div>
+</div>
+
+<form action="/feedback/home/">
+    <td>
+        <button type="submit">Go Back</button>
+    </td>
+</form>
+{% endblock %}

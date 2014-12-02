@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block new-post %} class="active" {% endblock %}
+{% block main %}
+
+<h1 class="page-header">New Post</h1>
+<form action="/feedback/submitted/" method="post">
+	{% csrf_token %}
+	{% if validity == False %}
+	<p style="color:red;"><b>You have not subscribed to this course</b></p>
+	{% endif %}
+	<table style="width:100%;">
+		
+		{{ form }}
+		
+	</table>
+	<button type="submit" class="submit">Submit</button>
+</form>
+
+{% endblock %}

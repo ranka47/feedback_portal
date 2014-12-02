@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Course Feedback</title>
+
+    <!-- Bootstrap core CSS -->
+    {% load staticfiles %}
+    <link href= "{% static 'feedback/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css">
+
+    <link href= "{% static 'feedback/css/simple-sidebar.css' %}" rel="stylesheet" type="text/css">
+
+    <!--link href="{% static 'feedback/dashboard.css' %}" rel="stylesheet" type="text/css"-->
+
+    <script src="{% static 'feedback/js/ie-emulation-modes-warning.js' %}"></script>
+
+  </head>
+
+  <body>
+    <div id="wrapper">
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+            <li class="sidebar-brand">Course Feedback</li>
+            {% if not user.is_staff %}
+            <li {% block home-student %}{% endblock %}>
+                <a href="/feedback/home/">News Feed</a>
+            </li>
+            <li {% block new-post %}{% endblock %}>
+                <a href="/feedback/new-post/">Post Something</a>
+            </li>
+            <li {% block feedback %}{% endblock %}>
+                <a href="/feedback/feedback/">Feedback</a>
+            </li><!-- 
+            <li {% block endsem-feedback %}{% endblock %}>
+                <a href="/feedback/endsem-feedback/">Post-Endsem Feedback</a>
+            </li> -->
+           <!--  <li {% block edit-profile %}{% endblock %}>
+                <a href="/feedback/edit-profile/">Edit Profile</a>
+            </li> -->
+             {% else %}
+            <li {% block home-faculty %}{% endblock %}>
+                <a href="/feedback/home/">Home</a>
+            </li>
+            <li {% block comment %}{% endblock %}>
+                <a href="/feedback/comment/">Comment</a>
+            </li>
+            <li {% block rating %}{% endblock %}>
+                <a href="/feedback/rating/">Rating</a>
+            </li>
+            {% endif %}
+            <li><a href="/feedback/logout/">Logout</a></li>
+            </ul>
+        </div>
+
+
+        <div id="page-content-wrapper">
+            <a class="navbar-toggle" href="#menu-toggle" id="menu-toggle">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+            <div id="brand-toggle">Course Feedback</div>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        {% block main %}{% endblock %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="{% static 'feedback/js/jquery-1.11.0.js' %}"></script>
+    <script src="{% static 'feedback/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'feedback/js/docs.min.js' %}"></script>
+    <script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+    </script>
+  </body>
+</html>

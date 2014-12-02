@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block new-post %} class="active" {% endblock %}
+{% block main %}
+
+<h1 class="page-header">Activate Feedback</h1>
+<form action="/feedback/{{id}}/submitted/" method="post">
+	{% csrf_token %}
+	<!-- {% if validity == False %} -->
+	<!-- <p style="color:red;"><b>You have not subscribed to this course</b></p> -->
+	<!-- {% endif %} -->
+	<table style="width:100%;">
+		
+		{{ form }}
+		
+	</table>
+	<button type="submit" class="submit">Submit</button>
+</form>
+{% if temp.create == 0 %}
+<form action="/feedback/{{id}}/feedback/" method="post">
+	{% csrf_token %}
+	<button type="submit" class="submit">Create Feedback Forms</button>
+{% else %}
+<p>Feedback Forms have been created.</p>
+{% endif %}
+{% endblock %}

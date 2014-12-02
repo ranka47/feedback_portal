@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block home-student %} class="active" {% endblock %}
+{% block main %}
+<h1 class="page-header">Howdy, {{ user }}!</h1>
+
+{% if user.is_staff == True %}
+    <table class="table table-striped">
+        <tbody>
+        {% for temp in coursefaculty %}
+        {% if user.faculty.name == temp.faculty.name %}
+        <tr>
+            <td><b>{{ temp.course.name }}</b></td>
+            <td><a href="/feedback/{{temp.id}}/feedback/">{{ temp.course.code }}</a></td>
+            <td>{{temp.year}}</td>
+        </tr>
+    {% endif %}
+    {% endfor %}
+    </tbody>
+    </table>
+{% else %}
+    <h3>News Feed</h3>
+    <table class="table table-striped">
+        <tbody>
+        {% for post in posts %}
+            {% for course in courses %}
+            <tr>
+                {% if post.course == course %}
+                    <b>{{ post.student.user.username }}</b><br>
+                    <a href="/feedback/{{ post.id }}/post">{{post.course}}</a><br>
+                    {{post.created_at}}<br>
+                    <p style="height:50px;width:100%;">{{post.post}}</p>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        {% endfor %}
+        </tbody>  
+    </table>
+    
+{% endif %}
+
+{% endblock %}
+<!-- <form action="/feedback/{{task.id}}/delete/">
+                        <script type="text/javascript"> 
+                            function confirmDelete()
+                             {  
+                                return confirm("Are you sure you want to delete?");   
+                            } 
+                        </script> 
+                        <button type="submit" onclick="confirmDelete()">Delete</button>
+                    </form> -->
