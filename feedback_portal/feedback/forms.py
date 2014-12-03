@@ -32,11 +32,13 @@ class CourseFacultyFeedbackForm(ModelForm):
 
 class MidSemFeedbackForm(ModelForm):
     class Meta:
-        model=models.CourseFacultyLink
-        fields=('design','instructor','tutorial','exam',)
+        model=models.Feedback
+        fields=('mid_design_value','mid_instructor_value','mid_tutorial_value','mid_exam_value','post',)
 
 class EndSemFeedbackForm(ModelForm):
     class Meta:
-        model=models.CourseFacultyLink
-        fields=('design','instructor','tutorial','exam',)
-        
+        model=models.Feedback
+        fields=('end_design_value','end_instructor_value','end_tutorial_value','end_exam_value','post',)
+
+
+"""EndSemFeedbackForm not working properly"""

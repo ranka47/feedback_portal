@@ -9,13 +9,22 @@ urlpatterns = [
         url('home/$', views.home),
         url('invalid/$', views.login),
 
-        url(r'^(?P<feedback_id>\d+)/fillfeedback/$',views.fillfeedback),
-        url('feedback/$',views.feedback),
         # url('endsem-feedback/$',views.endsem_feedback),
 
-        url(r'^(?P<coursefaculty_id>\d+)/submitted/$', views.activate_feedback),
-        url(r'^(?P<coursefaculty_id>\d+)/feedback/$', views.activate_feedback),
+        url(r'^(?P<coursefaculty_id>\d+)/activate/submitted/$', views.activate_feedback),
+        url(r'^(?P<coursefaculty_id>\d+)/activate/feedback/$', views.activate_feedback),
+
+        url(r'^(?P<feedback_id>\d+)/(?P<coursefaculty_id>\d+)/midsem-fillfeedback/submit/$', views.midsem_fillfeedback),
+        url(r'^(?P<feedback_id>\d+)/(?P<coursefaculty_id>\d+)/midsem-fillfeedback/$', views.midsem_fillfeedback),
+
+        url(r'^(?P<feedback_id>\d+)/(?P<coursefaculty_id>\d+)/endsem-fillfeedback/submit/$', views.endsem_fillfeedback),
+        url(r'^(?P<feedback_id>\d+)/(?P<coursefaculty_id>\d+)/endsem-fillfeedback/$', views.endsem_fillfeedback),
+
+        url('midsem-feedback/$',views.midsem_feedback),
+        url('endsem-feedback/$',views.endsem_feedback),
         
+        url('comment/$', views.comment),
+        url('rating/$', views.rating),
         # url(r'^(?P<task_id>\d+)/user/$',views.usertask_detail),
         url('new-post/$', views.new_post),
         url('submitted/$', views.new_post),

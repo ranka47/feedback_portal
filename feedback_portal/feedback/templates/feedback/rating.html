@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block rating %} class="active" {% endblock %}
+{% block main %}
+<h1 class="page-header">Howdy, {{ user }}!</h1>
+
+<h2 class="sub-header">Ratings</h2>
+<table class="table table-striped">
+<thead>
+	<th>CourseName Year</th>
+	<th>Design of Course</th>
+	<th>Instructor</th>
+	<th>Tutorial</th>
+	<th>Exam</th>
+</thead>
+<tbody>
+
+{% for coursefaculty in coursefaculties %}
+{% if coursefaculty.faculty.name == user.faculty.name %}
+
+<tr>
+
+<td>{{coursefaculty.course}}</td>
+<td>{{coursefaculty.mid_design}}</td>
+        <td>{{coursefaculty.mid_instructor}}</td>
+        <td>{{coursefaculty.mid_tutorial}}</td>
+        <td>{{coursefaculty.mid_exam}}</td>
+</tr>
+{% endif %}
+
+<br>
+{% endfor %}
+</tbody>
+</table>
+{% endblock %}

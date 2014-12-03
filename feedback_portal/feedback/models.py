@@ -37,10 +37,16 @@ class CourseStudentLink(models.Model):
 class CourseFacultyLink(models.Model):
     course = models.ForeignKey(Course)
     faculty=models.ForeignKey(Faculty)
-    design=models.PositiveSmallIntegerField(blank=True, null=True)
-    instructor=models.PositiveSmallIntegerField(blank=True, null=True)
-    tutorial=models.PositiveSmallIntegerField(blank=True, null=True)
-    exam=models.PositiveSmallIntegerField(blank=True, null=True)
+    # design=models.PositiveSmallIntegerField(blank=True, null=True)
+    # instructor=models.PositiveSmallIntegerField(blank=True, null=True)
+    # tutorial=models.PositiveSmallIntegerField(blank=True, null=True)
+    # exam=models.PositiveSmallIntegerField(blank=True, null=True)
+    """Doing due to problem in views.py 'adding' function"""
+
+    design=models.PositiveSmallIntegerField(default=0)
+    instructor=models.PositiveSmallIntegerField(default=0)
+    tutorial=models.PositiveSmallIntegerField(default=0)
+    exam=models.PositiveSmallIntegerField(default=0)
     year=models.DateField(auto_now_add=True)
 
     mid_design=models.BooleanField(default=False)

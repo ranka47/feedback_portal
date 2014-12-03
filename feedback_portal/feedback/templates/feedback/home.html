@@ -10,7 +10,7 @@
         {% if user.faculty.name == temp.faculty.name %}
         <tr>
             <td><b>{{ temp.course.name }}</b></td>
-            <td><a href="/feedback/{{temp.id}}/feedback/">{{ temp.course.code }}</a></td>
+            <td><a href="/feedback/{{temp.id}}/activate/feedback/">{{ temp.course.code }}</a></td>
             <td>{{temp.year}}</td>
         </tr>
     {% endif %}

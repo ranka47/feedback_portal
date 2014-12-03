@@ -164,7 +164,7 @@ header styles
 */
 
 #header{
-    background: #428bca;
+    background: #00605d;
     color: #fff;
     padding: 40px 80px 20px 80px;
 }
@@ -197,7 +197,19 @@ header styles
 
 
 
-
+#instruction{
+    font-weight:normal;
+    color:#FFFFFF;
+    background-color:#000000;
+    letter-spacing:1pt;
+    word-spacing:2pt;
+    font-size:18px;
+    text-align:left;
+    font-family:georgia, serif;
+    line-height:1;
+    padding: 10px 10px;
+    margin: 0px 0px 0px 0px;
+}
 
 
 

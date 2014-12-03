@@ -34,12 +34,12 @@
             <li {% block new-post %}{% endblock %}>
                 <a href="/feedback/new-post/">Post Something</a>
             </li>
-            <li {% block feedback %}{% endblock %}>
-                <a href="/feedback/feedback/">Feedback</a>
-            </li><!-- 
+            <li {% block midsem-feedback %}{% endblock %}>
+                <a href="/feedback/midsem-feedback/">MidSem Feedback</a>
+            </li>
             <li {% block endsem-feedback %}{% endblock %}>
-                <a href="/feedback/endsem-feedback/">Post-Endsem Feedback</a>
-            </li> -->
+                <a href="/feedback/endsem-feedback/">Endsem Feedback</a>
+            </li>
            <!--  <li {% block edit-profile %}{% endblock %}>
                 <a href="/feedback/edit-profile/">Edit Profile</a>
             </li> -->
@@ -50,7 +50,7 @@
             <li {% block comment %}{% endblock %}>
                 <a href="/feedback/comment/">Comment</a>
             </li>
-            <li {% block rating %}{% endblock %}>
+             <li {% block rating %}{% endblock %}>
                 <a href="/feedback/rating/">Rating</a>
             </li>
             {% endif %}

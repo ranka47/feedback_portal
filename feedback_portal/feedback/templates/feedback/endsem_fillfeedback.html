@@ -7,11 +7,9 @@
 
     <script src="{% static 'feedback/js/jq.js' %}"></script>
     <script src="{% static 'feedback/js/feedback.js' %}"></script>
+    <script src="{% static 'feedback/js/Chart.js' %}"></script>
 
-        <!-- <link rel="stylesheet" type="text/css" href="feedback.css">
-        <script type="text/javascript" src="jq.js"></script>
-        <script type="text/javascript" src="feedback.js"></script>
-         -->
+        
         <!--
             This code will manage the smooth scroll
         -->
@@ -50,6 +48,15 @@
     </head>
     <body>
         
+        
+        
+        
+        
+        
+        
+
+        
+
         <div id="set-of-links">
             <a href="#part-1">Design of course</a>
             <a href="#part-2">Instructor</a>
@@ -58,30 +65,35 @@
         </div>
         
         
+        
+        
         <div id="header">
             <h1>Feedback</h1>
             <p>Online Course Feedback Portal</p>
         </div>
         
         
+        <p id="instruction">If no response is filled, it will be considered 'neutral' by default.</p>
+        
         <div id="middler">
-            <form action="">
+            <form action="" method="GET">
                 <ul>
                     <a name="part-1"></a>
+                    {% if feedback.coursefaculty.mid_design != False%}
                     <li>
                         <h1>Design of course</h1>
                         <ol>
-                            <li><label>Were objectives of the course clear to you</label></li>
+                            <li><label>Were objectives of the course clear to you?</label></li>
                                 <ul>
                                     <li><input type="radio" name="poll11" value=5>Strongly agree<br></li>
                                     <li><input type="radio" name="poll11" value=4>Agree<br></li>
-                                    <li><input type="radio" name="poll11" value=3>Neutral<br></li>
+                                    <li><input type="radio" name="poll11" value=3 checked>Neutral<br></li>
                                     <li><input type="radio" name="poll11" value=2>Disagree<br></li>
                                     <li><input type="radio" name="poll11" value=1>Strongly disagree<br></li>
                                 </ul>
 
 
-                            <li><label>The course content met with your expectation</label></li>
+                            <li><label>*The course content met with your expectations.</label></li>
                                 <ul>
                                     <li><input type="radio" name="poll12" value=5>Strongly agree<br></li>
                                     <li><input type="radio" name="poll12" value=4>Agree<br></li>
@@ -91,59 +103,59 @@
                                 </ul>
 
 
-                            <li><label>The level of the course was</label></li>
+                            <li><label>*The level of the course was:</label></li>
                                 <ul>
-                                    <li><input type="radio" name="poll13" value=1>Too low<br></li>
-                                    <li><input type="radio" name="poll13" value=3>Intermediate<br></li>
-                                    <li><input type="radio" name="poll13" value=2>Too high<br></li>
+                                    <li onClick="javascript:rb_too_low();"><input type="radio" name="poll13" value=1 >Too low<br></li>
+                                    <li onClick="javascript:rb_intermediate();"><input type="radio" name="poll13" value=3>Intermediate<br></li>
+                                    <li onClick="javascript:rb_too_high();"><input type="radio" name="poll13" value=2 data-id = "too_high_level">Too high<br></li>
                                 </ul>
 
                                 <ol type=a id="too_low_level">
-                                    <li><label>Why do you think you found the level low</label></li>
+                                    <li><label>Why do you think you found the level low?</label></li>
                                         <ul id="13alow">
                                             <li><input type="checkbox" name="poll13a" value="Very small syllabus">Very small syllabus</input></li>
                                             <li><input type="checkbox" name="poll13a" value="Easy exam or grading">Easy exam or grading</input></li>
                                             <li><input type="checkbox" name="poll13a" value="Quality instruction">Quality instruction</input></li>
-                                            <li><label>Other: </label><input type="text" name="poll13atb"></input></li>
+                                            <li><label>Other: </label><input type="text" name="poll13tb"></input></li>
                                         </ul>
-                                    <li><label>What topics can be added to the course to make it better</label><br>
+                                    <li><label>What topics can be added to the course to make it better?</label><br>
                                         <textarea rows="3" cols="50" name="topic_suggestion"></textarea></li>
-                                    <li><label>Should there be changes in the implementation? If yes then what?</label><br>
+                                    <li><label>Should there be changes in the implementation? If yes, then what?</label><br>
                                         <textarea rows="3" cols="50" name="implementation_change"></textarea></li>
                                 </ol>
 
                                 <ol type=a id="too_high_level">
-                                    <li><label>Why do you think you found the level high</label></li>
+                                    <li><label>Why do you think you found the level high?</label></li>
                                         <ul id="13bhigh">
-                                            <li><input type="checkbox" name="poll13b" value="Very large syllabus">Very small syllabus</input></li>
-                                            <li><input type="checkbox" name="poll13b" value="Tough exam or grading">Easy exam or grading</input></li>
-                                            <li><input type="checkbox" name="poll13b" value="Quality instruction">Quality instruction</input></li>
-                                            <li><label>Other: </label><input type="text" name="poll13btb"></input></li>
+                                            <li><input type="checkbox" name="poll13b" value="Very large syllabus">Very large syllabus</input></li>
+                                            <li><input type="checkbox" name="poll13b" value="Tough exam or grading">Tough exam or grading</input></li>
+                                            <li><input type="checkbox" name="poll13b" value="Quality instruction">Instruction not of good quality</input></li>
+                                            <li><label>Other: </label><input type="text" name="poll13tb"></input></li>
                                         </ul>
-                                    <li><label>What topics can be added to the course to make it better</label><br>
+                                    <li><label>What topics can be added/removed to the course to make it better</label><br>
                                         <textarea rows="3" cols="50" name="topic_suggestion"></textarea></li>
-                                    <li><label>Should there be changes in the implementation? If yes then what?</label><br>
+                                    <li><label>Should there be changes in the implementation? If yes, then what?</label><br>
                                         <textarea rows="3" cols="50" name="implementation_change"></textarea></li>
                                 </ol>
 
-                            <li><label>The course content with your expectation</label></li>
+                            <li><label>*The course content compared with your expectations:</label></li>
                                 <ul>
-                                    <li><input type="radio" name="poll14" value=1>Too theoretical<br></li>
-                                    <li><input type="radio" name="poll14" value=3>Neutral<br></li>
-                                    <li><input type="radio" name="poll14" value=2>Too emperical<br></li>
+                                    <li onClick="javascript:rb_theoretical();"><input type="radio" name="poll14" value=1>Too theoretical<br></li>
+                                    <li onClick="javascript:rb_noe();"><input type="radio" name="poll14" value=3>Neutral<br></li>
+                                    <li onClick="javascript:rb_noe();"><input type="radio" name="poll14" value=2>Too emperical<br></li>
                                 </ul>
 
                                 <ol type=a id="too_theoretical_expectations">
-                                    <li><label>What topics need more emperiacal approach</label><br>
+                                    <li><label>What topics need more emperical approach?</label><br>
                                         <textarea rows="3" cols="50" name="more_emperical_approach"></textarea></li>
-                                    <li><label>Would tutorial/lab session be useful?</label><br>
+                                    <li><label>Would a tutorial/lab session be useful?</label><br>
                                         <ul>
                                             <li><input type="radio" name="tutorial" value=1>Yes</li>
                                             <li><input type="radio" name="tutorial" value=1>No</li>
                                         </ul>
                                 </ol>
 
-                            <li><label>Prerequisites were appropriate for the course</label></li>
+                            <li><label>Prerequisites were appropriate for the course.</label></li>
                                 <ul>
                                     <li><input type="radio" name="poll15" value=5>Strongly agree<br></li>
                                     <li><input type="radio" name="poll15" value=4>Agree<br></li>
@@ -153,7 +165,7 @@
                                 </ul>
 
 
-                            <li><label>The course exposed you to new knowledge and practices</label></li>
+                            <li><label>The course exposed you to new knowledge and practices.</label></li>
                                 <ul>
                                     <li><input type="radio" name="poll16" value=5>Strongly agree<br></li>
                                     <li><input type="radio" name="poll16" value=4>Agree<br></li>
@@ -164,7 +176,7 @@
 
                         </ol>
                     </li>
-
+                    {% endif %}
 
 
 
@@ -175,19 +187,21 @@
 
 
                     <a name="part-2"></a>
+                    {% if feedback.coursefaculty.mid_instructor != False %}
+
                     <li>
                         <h1>Instructor</h1>
 
                         <ol>
                             <li>
-                                <label>Lectures were clear and easy to understand</label>
+                                <label>*Lectures were clear and easy to understand.</label>
                             </li>
                             <ul>
-                                <li><input type="radio" name="poll21" value=5>Strongly agree<br></li>
-                                <li><input type="radio" name="poll21" value=4>Agree<br></li>
-                                <li><input type="radio" name="poll21" value=3>Neutral<br></li>
-                                <li><input type="radio" name="poll21" value=2>Disagree<br></li>
-                                <li><input type="radio" name="poll21" value=1>Strongly disagree<br></li>
+                                <li onClick="javascript:rb_inst_clear();"><input type="radio" name="poll21" value=5>Strongly agree<br></li>
+                                <li onClick="javascript:rb_inst_clear();"><input type="radio" name="poll21" value=4>Agree<br></li>
+                                <li onClick="javascript:rb_inst_clear();"><input type="radio" name="poll21" value=3>Neutral<br></li>
+                                <li onClick="javascript:rb_inst_notclear();"><input type="radio" name="poll21" value=2>Disagree<br></li>
+                                <li onClick="javascript:rb_inst_notclear();"><input type="radio" name="poll21" value=1>Strongly disagree<br></li>
                             </ul>
 
                             <ol type=a id="why_not">
@@ -203,7 +217,7 @@
 
 
                             <li>
-                                <label>Adequate notes were handed out after the lecture</label>
+                                <label>Adequate notes were handed out after the lecture.</label>
                             </li>
                             <ul>
                                 <li><input type="radio" name="poll22" value=5>Strongly agree<br></li>
@@ -214,7 +228,7 @@
                             </ul>
 
                             <li>
-                                <label>Instructor enjoyed iteration and was helpful</label>
+                                <label>*The instructor encouraged interaction and was helpful.</label>
                             </li>
                             <ul>
                                 <li><input type="radio" name="poll23" value=5>Strongly agree<br></li>
@@ -232,7 +246,7 @@
                                 <li><input type="radio" name="poll24" value=0>No</li>
                             </ul>
                             <li>
-                                <label>The intructor was well prepared for the lectures</label>
+                                <label>*The intructor was well prepared for the lectures.</label>
                             </li>
                             <ul>
                                 <li><input type="radio" name="poll25" value=5>Strongly agree<br></li>
@@ -243,7 +257,7 @@
                             </ul>
 
                             <li>
-                                <label>Classes were held on time and as per schedule</label>
+                                <label>Classes were held on time and as per schedule.</label>
                             </li>
 
                             <ul>
@@ -255,7 +269,7 @@
                             </ul>
                         </ol>
                     </li>
-
+                    {% endif %}
 
 
 
@@ -264,22 +278,24 @@
 
 
                     <a name="part-3"></a>
+                    {% if feedback.coursefaculty.mid_tutorial %}
+                    
                     <li>
                         <h1>Tutorial/Tutor</h1></h1>
                         <ol>
                             <li>
-                                <label>The tutorials were helpful in clearing concepts taught in lectures</label>
+                                <label>*The tutorials were helpful in clearing concepts taught in lectures.</label>
                             </li>
                             <ul>
-                                <li><input type="radio" name="poll31" value=5>Strongly agree<br></li>
-                                <li><input type="radio" name="poll31" value=4>Agree<br></li>
-                                <li><input type="radio" name="poll31" value=3>Neutral<br></li>
-                                <li><input type="radio" name="poll31" value=2>Disagree<br></li>
-                                <li><input type="radio" name="poll31" value=1>Strongly disagree<br></li>
+                                <li onclick="tut_helpful()"><input type="radio" name="poll31" value=5>Strongly agree<br></li>
+                                <li onclick="tut_helpful()"><input type="radio" name="poll31" value=4>Agree<br></li>
+                                <li onclick="tut_helpful()"><input type="radio" name="poll31" value=3>Neutral<br></li>
+                                <li onclick="tut_not_helpful()"><input type="radio" name="poll31" value=2>Disagree<br></li>
+                                <li onclick="tut_not_helpful()"><input type="radio" name="poll31" value=1>Strongly disagree<br></li>
                             </ul>
 
                                 <ol type=a id="reasons">
-                                    <li><label>What could be possible reasons for this?</label><br>
+                                    <li><label>What could be the possible reason(s) for this?</label><br>
                                         <ul id="31reasons">
                                             <li><input type="checkbox" name="poll31a" value="Tutor was inexperienced">Tutor was inexperienced</input></li>
                                             <li><input type="checkbox" name="poll31a" value="Assignments were too easy/difficult">Assignments were too easy/difficult</input></li>
@@ -288,7 +304,7 @@
                                         </ul>
                                 </ol>
 
-                            <li><label>Tutorial problems were innovative and prompted individual thinking</label></li>
+                            <li><label>Tutorial problems were innovative and promoted individual thinking.</label></li>
                                 <ul>
                                     <li><input type="radio" name="poll32" value=5>Strongly agree<br></li>
                                     <li><input type="radio" name="poll32" value=4>Agree<br></li>
@@ -297,7 +313,7 @@
                                     <li><input type="radio" name="poll32" value=1>Strongly disagree<br></li>
                                 </ul>
 
-                            <li><label>The tutor was well prepared for the classes</label></li>
+                            <li><label>The tutor was well prepared for the classes.</label></li>
                                 <ul>
                                     <li><input type="radio" name="poll33" value=5>Strongly agree<br></li>
                                     <li><input type="radio" name="poll33" value=4>Agree<br></li>
@@ -306,7 +322,7 @@
                                     <li><input type="radio" name="poll33" value=1>Strongly disagree<br></li>
                                 </ul>
 
-                            <li><label>Tutorials were held regularly and as per schedule</label></li>
+                            <li><label>Tutorials were held regularly and as per schedule.</label></li>
                                 <ul>
                                     <li><input type="radio" name="poll34" value=5>Strongly agree<br></li>
                                     <li><input type="radio" name="poll34" value=4>Agree<br></li>
@@ -316,6 +332,7 @@
                                 </ul>
 
                         </ol>
+                        {% endif %}
                     </li>
 
 
@@ -329,13 +346,15 @@
 
 
                     <a name="part-4"></a>
+                    {% if feedback.coursefaculty.mid_exam %}
+
                     <li>
 
                         <h1>Exams/Grading</h1>
 
                         <ol>
                             <li>
-                                <label>The number of exams(quizzes/midsem/endsem) were sufficient to cover the curriculum</label>
+                                <label>The number of exams(quizzes/midsem/endsem) were sufficient to cover the curriculum.</label>
                             </li>
                             <ul>
                                 <li><input type="radio" name="poll41" value=5>Strongly agree<br></li>
@@ -346,7 +365,7 @@
                             </ul>
 
                             <li>
-                                <label>Exams are too easy/difficult than what is expected</label>
+                                <label>*Exams were far easier/more difficult than what was expected.</label>
                             </li>
                             <ul>
                                 <li><input type="radio" name="exams" value=1>Yes</li>
@@ -354,7 +373,7 @@
                             </ul>
 
                             <li>
-                                <label>the kind of grading system followed is appropriate for the course</label>
+                                <label>The kind of grading system followed (absolute/relative) was appropriate for the particular course.</label>
                             </li>
                             <ul>
                                 <li><input type="radio" name="poll43" value=5>Strongly agree<br></li>
@@ -367,30 +386,30 @@
 
                         
                         
-                        <button type="submit">Submit</button>
 
                         
-                        
+                        {% endif %}
                     </li>
-
-
-
-
-
 
                 </ul>
 
             </form>
         </div>
 
-
-        
-        
-<div style="background-color:#dcf9f7;"> 
+       <div style="background-color:#dcf9f7;"> 
+<form action="/feedback/{{feedback.id}}/{{id}}/endsem-fillfeedback/submit/" method="post">
+    {% csrf_token %}
 <table style="background-color:#dcf9f7;">   
 {{form}}
 </table>
-</div>
+<button type="submit" id="target" onclick="getTotal2()">Submit</button>
+</form>
+        
+        
+        
+        
+        
+
 
     </body>
 </html>

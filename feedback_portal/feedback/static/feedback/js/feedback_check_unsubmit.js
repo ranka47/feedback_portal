@@ -54,7 +54,7 @@ function tut_helpful(){
 
 function tut_not_helpful(){
   document.getElementById('reasons').style.display="block";
-}
+};
 // when submit button is clicked
 // $( "#target" ).submit(function() {
 //     $('input:radio:checked').each(function() {
@@ -79,28 +79,159 @@ function getTotal1() {
     var total3 = 0;
     var total4 = 0;
     var count=0;
-    $("input:radio:checked").each(function() {
-    // Iterate through all checked radio buttons
-    if (count < 6) {
-        total1 = total1 + parseInt(this.value);
-        document.getElementById('id_mid_design_value').innerHTML = total1;
-        count = count + 1;
+
+    var a1 = document.getElementsByName('poll11');
+    var a2 = document.getElementsByName('poll12');
+    var a3 = document.getElementsByName('poll13');
+    var a4 = document.getElementsByName('poll14');
+    var a5 = document.getElementsByName('poll15');
+    var a6 = document.getElementsByName('poll16');
+    var b1 = document.getElementsByName('poll21');
+    var b2 = document.getElementsByName('poll22');
+    var b3 = document.getElementsByName('poll23');
+    var b4 = document.getElementsByName('poll24');
+    var b5 = document.getElementsByName('poll25');
+    var b6 = document.getElementsByName('poll26');
+    var c1 = document.getElementsByName('poll31');
+    var c2 = document.getElementsByName('poll32');
+    var c3 = document.getElementsByName('poll33');
+    var c4 = document.getElementsByName('poll34');
+    var d1 = document.getElementsByName('poll41');
+    var d2 = document.getElementsByName('poll42');
+    var d3 = document.getElementsByName('poll43');
+
+
+    for(var i=0; a1[i]; ++i){
+      if(a1[i].checked){
+           total1 = total1 + 1;
+      }
     }
-    else if (count >= 6 && count < 12) {
-        total2 = total2 + parseInt(this.value);
-        document.getElementById('id_mid_instructor_value').innerHTML = total2;
-        count = count + 1;
+
+    for(var i=0; a2[i]; ++i){
+      if(a2[i].checked){
+           total1 = total1 + 1;
+      }
     }
-    else if(count >= 12 && count < 16) {
-        total3 = total3 + parseInt(this.value);
-        document.getElementById('id_mid_tutorial_value').innerHTML = total3;
-        count = count + 1;
+
+    for(var i=0; a3[i]; ++i){
+      if(a3[i].checked){
+           total1 = total1 + 1;
+      }
     }
-    else {
-        total4 = total4 + parseInt(this.value);
-        document.getElementById('id_mid_exam_value').innerHTML = total4;
-        count = count + 1;
+
+    for(var i=0; a4[i]; ++i){
+      if(a4[i].checked){
+           total1 = total1 + 1;
+      }
     }
+
+    for(var i=0; a5[i]; ++i){
+      if(a5[i].checked){
+           total1 = total1 + 1;
+      }
+    }
+
+    for(var i=0; a6[i]; ++i){
+      if(a6[i].checked){
+           total1 = total1 + 1;
+      }
+    }
+
+    for(var i=0; b1[i]; ++i){
+      if(b1[i].checked){
+           total2 = total2 + 1;
+      }
+    }
+
+    for(var i=0; b2[i]; ++i){
+      if(b2[i].checked){
+           total2 = total2 + 1;
+      }
+    }
+
+    for(var i=0; b3[i]; ++i){
+      if(b3[i].checked){
+           total2 = total2 + 1;
+      }
+    }
+
+    for(var i=0; b4[i]; ++i){
+      if(b4[i].checked){
+           total2 = total2 + 1;
+      }
+    }
+
+    for(var i=0; b5[i]; ++i){
+      if(b5[i].checked){
+           total2 = total2 + 1;
+      }
+    }
+
+    for(var i=0; b6[i]; ++i){
+      if(b6[i].checked){
+           total2 = total2 + 1;
+      }
+    }
+
+    for(var i=0; c1[i]; ++i){
+      if(c1[i].checked){
+           total3 = total3 + 1;
+      }
+    }
+    for(var i=0; c2[i]; ++i){
+      if(c2[i].checked){
+           total3 = total3 + 1;
+      }
+    }
+    for(var i=0; c3[i]; ++i){
+      if(c3[i].checked){
+           total3 = total3 + 1;
+      }
+    }
+    for(var i=0; c4[i]; ++i){
+      if(c4[i].checked){
+           total3 = total3 + 1;
+      }
+    }
+
+    for(var i=0; d1[i]; ++i){
+      if(d1[i].checked){
+           total4 = total4 + 1;
+      }
+    }
+    for(var i=0; d2[i]; ++i){
+      if(d2[i].checked){
+           total4 = total4 + 1;
+      }
+    }
+    for(var i=0; d3[i]; ++i){
+      if(d3[i].checked){
+           total4 = total4 + 1;
+      }
+    }
+
+    // $("input:radio:checked").each(function() {
+    // // Iterate through all checked radio buttons
+    // if (count < 6) {
+    //     total1 = total1 + parseInt(this.value);
+    //     document.getElementById('id_mid_design_value').innerHTML = total1;
+    //     count = count + 1;
+    // }
+    // else if (count >= 6 && count < 12) {
+    //     total2 = total2 + parseInt(this.value);
+    //     document.getElementById('id_mid_instructor_value').innerHTML = total2;
+    //     count = count + 1;
+    // }
+    // else if(count >= 12 && count < 16) {
+    //     total3 = total3 + parseInt(this.value);
+    //     document.getElementById('id_mid_tutorial_value').innerHTML = total3;
+    //     count = count + 1;
+    // }
+    // else {
+    //     total4 = total4 + parseInt(this.value);
+    //     document.getElementById('id_mid_exam_value').innerHTML = total4;
+    //     count = count + 1;
+    // }
 
 });
 

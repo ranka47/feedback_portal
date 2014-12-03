@@ -57,7 +57,12 @@ def home(request):
         user=User.objects.get(username=request.user.username)
         courses=user.student.courses.all()
         posts=Post.objects.all()
-        return render_to_response('feedback/home.html', {'courses':courses,'posts':posts,'user':user},context_instance=RequestContext(request))
+        max_id=0
+        for post in posts:
+            if post.id > max_id:
+                max_id=post.id
+
+        return render_to_response('feedback/home.html', {'max_id':max_id,'courses':courses,'posts':posts,'user':user},context_instance=RequestContext(request))
     else:
         coursefaculty=CourseFacultyLink.objects.all()
         return render_to_response('feedback/home.html',{'coursefaculty':coursefaculty,},context_instance=RequestContext(request))
@@ -139,7 +144,12 @@ def activate_feedback(request, coursefaculty_id):
         temp=CourseFacultyLink.objects.get(id=coursefaculty_id)
         form = forms.CourseFacultyFeedbackForm(request.POST, instance=temp)
         if form.is_valid():
-            form.save()
+            tempform=form.save(commit=False)
+            tempform.mid_design_value=0
+            tempform.mid_instructor_value=0
+            tempform.mid_tutorial_value=0
+            tempform.mid_exam_value=0
+            tempform.save()
             admin=User.objects.get(username='admin')
             course=temp.course
             if temp.create == 0:
@@ -162,15 +172,115 @@ def activate_feedback(request, coursefaculty_id):
     return render_to_response("feedback/feedback.html", {'id':coursefaculty_id,'form':form,'temp':temp}, context_instance=RequestContext(request))
     
 @login_required(login_url="/feedback/")
-def fillfeedback(request, feedback_id):
-    form=forms.MidSemFeedbackForm()
-    return render_to_response("feedback/fillfeedback.html",{'form':form,},context_instance=RequestContext(request))
+def midsem_fillfeedback(request, feedback_id, coursefaculty_id):
+    feedback=Feedback.objects.get(id=feedback_id)
+    cfl=CourseFacultyLink.objects.get(id=coursefaculty_id)
+    if request.method == 'POST':
+        form=forms.MidSemFeedbackForm(request.POST,instance=feedback)
+        if form.is_valid():
+            temp=form.save(commit=False)
+            temp.mid_design=cfl.mid_design
+            temp.mid_instructor=cfl.mid_instructor
+            temp.mid_tutorial=cfl.mid_tutorial
+            temp.mid_exam=cfl.mid_exam
+
+            temp.save()
+            feedbacks=Feedback.objects.all()
+            coursefaculty=CourseFacultyLink.objects.all()
+            user=request.user.username
+            # return render_to_response("feedback/courses.html",{'user':user,'feedbacks':feedbacks,'coursefaculty':coursefaculty,},context_instance=RequestContext(request))
+            return HttpResponseRedirect('/feedback/midsem-feedback/')
+    else:
+        form=forms.MidSemFeedbackForm(instance=feedback)
+
+    return render_to_response("feedback/midsem_fillfeedback.html",{'form':form, 'feedback':feedback, 'id':coursefaculty_id,},context_instance=RequestContext(request))
     # return HttpResponse("HI")
-    
+
 @login_required(login_url="/feedback/")
-def feedback(request):
+def endsem_fillfeedback(request, feedback_id, coursefaculty_id):
+    feedback=Feedback.objects.get(id=feedback_id)
+    cfl=CourseFacultyLink.objects.get(id=coursefaculty_id)
+    if request.method == 'POST':
+        form=forms.EndSemFeedbackForm(request.POST,instance=feedback)
+        if form.is_valid():
+            temp=form.save(commit=False)
+            temp.end_design=cfl.end_design
+            temp.end_instructor=cfl.end_instructor
+            temp.end_tutorial=cfl.end_tutorial
+            temp.end_exam=cfl.end_exam
+
+
+            temp.save()
+            feedbacks=Feedback.objects.all()
+            coursefaculty=CourseFacultyLink.objects.all()
+            user=request.user.username
+            # return render_to_response("feedback/courses.html",{'user':user,'feedbacks':feedbacks,'coursefaculty':coursefaculty,},context_instance=RequestContext(request))
+            return HttpResponseRedirect('/feedback/endsem-feedback/')
+    else:
+        form=forms.MidSemFeedbackForm(instance=feedback)
+
+    return render_to_response("feedback/endsem_fillfeedback.html",{'form':form, 'feedback':feedback, 'id':coursefaculty_id,},context_instance=RequestContext(request))
+    # return HttpResponse("HI")
+
+@login_required(login_url="/feedback/")
+def midsem_feedback(request):
     feedback=Feedback.objects.all()
     coursefaculty=CourseFacultyLink.objects.all()
     user=request.user.username
-    return render_to_response("feedback/courses.html",{'user':user,'feedback':feedback,'coursefaculty':coursefaculty,},context_instance=RequestContext(request))
+    return render_to_response("feedback/courses_midsem.html",{'user':user,'feedback':feedback,'coursefaculty':coursefaculty,},context_instance=RequestContext(request))
+
+@login_required(login_url="/feedback/")
+def endsem_feedback(request):
+    feedback=Feedback.objects.all()
+    coursefaculty=CourseFacultyLink.objects.all()
+    user=request.user.username
+    return render_to_response("feedback/courses_endsem.html",{'user':user,'feedback':feedback,'coursefaculty':coursefaculty,},context_instance=RequestContext(request))
+
+@login_required(login_url="/feedback/")
+def comment(request):
+    feedbacks=Feedback.objects.all()
+    return render_to_response("feedback/comment.html",{'feedbacks':feedbacks,},context_instance=RequestContext(request))
+
+"""Rating only for MidSem"""
+
+def add(coursefaculty,feedback,adding):
+    adding.design=adding.design+feedback.mid_design_value
+    adding.instructor=adding.instructor+feedback.mid_instructor_value
+    adding.tutorial=adding.tutorial+feedback.mid_tutorial_value
+    adding.exam=adding.exam+feedback.mid_exam_value
+    return adding
+
+@login_required(login_url="/feedback/")
+def rating(request):
+    feedbacks=Feedback.objects.all()
+    coursefaculties=CourseFacultyLink.objects.all()
+    class adding:
+        design=0
+        instructor=0
+        tutorial=0
+        exam=0
+    class average:
+        design=0
+        instructor=0
+        tutorial=0
+        exam=0
+    count=0
+    for coursefaculty in coursefaculties:
+        for feedback in feedbacks:
+            adding=add(coursefaculty,feedback,adding)
+            count=count+1
+        if count != 0:
+            average.design=adding.design/count
+            average.instructor=adding.instructor/count
+            average.tutorial=adding.tutorial/count
+            average.exam=adding.exam/count
+        coursefaculty.mid_design=average.design
+        coursefaculty.mid_instructor=average.instructor
+        coursefaculty.mid_tutorial=average.tutorial
+        coursefaculty.mid_exam=average.exam
+        count=0
+        coursefaculty.save()
+    return render_to_response("feedback/rating.html",{'coursefaculties':coursefaculties,},context_instance=RequestContext(request))
+
+
 

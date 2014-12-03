@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block comment %} class="active" {% endblock %}
+{% block main %}
+<h1 class="page-header">Howdy, {{ user }}!</h1>
+
+<h2 class="sub-header">Descriptive Remarks</h2>
+<table class="table table-striped">
+<tbody>
+
+{% for feedback in feedbacks %}
+{% if feedback.coursefaculty.faculty.name == user.faculty.name and feedback.post != "" %}
+
+<tr>
+
+<b>{{feedback.coursefaculty.course}}</b>
+<br>
+{{feedback.post}}
+
+</tr>
+<br>
+
+{% endif %}
+
+{% endfor %}
+</tbody>
+</table>
+{% endblock %}

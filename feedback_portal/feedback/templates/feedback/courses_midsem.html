@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block feedback %} class="active" {% endblock %}
+{% block main %}
+<h1 class="page-header">Howdy, {{ user }}!</h1>
+<p><b>Note:</b> M stands for MidSem and E stands for EndSem</p>
+<table class="table table-striped">
+<thead>
+	<th>Course</th>
+	<th>Faculty</th>
+	<th>Design (M)</th>
+	<th>Instructor (M)</th>
+	<th>Tutorial (M)</th>
+	<th>Exam (M)</th>
+	
+</thead>
+<tbody>
+{% for i in feedback %}
+{% if i.student.user.username == user %}
+<tr>
+	<td><a href="/feedback/{{ i.id }}/{{ i.coursefaculty.id }}/midsem-fillfeedback">{{i.coursefaculty.course}}</a></td>
+	<td>{{i.coursefaculty.faculty}}</td>
+	<td>{{i.mid_design}}</td>
+	<td>{{i.mid_instructor}}</td>
+	<td>{{i.mid_tutorial}}</td>
+	<td>{{i.mid_exam}}</td>
+	
+</tr>
+<tr>
+	<td></td>
+	<td style="color:red;">Active Forms</td>
+	<td>{{i.coursefaculty.mid_design}}</td>
+	<td>{{i.coursefaculty.mid_instructor}}</td>
+	<td>{{i.coursefaculty.mid_tutorial}}</td>
+	<td>{{i.coursefaculty.mid_exam}}</td>
+</tr>	
+{% endif %}
+{% endfor %}
+</tbody>
+</table>
+{% endblock %}
